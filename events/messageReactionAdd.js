@@ -7,10 +7,10 @@ module.exports = class {
   async run(reaction, user) {
     const message = reaction.message;
      // This is the first check where we check to see if the reaction is not the unicode star emote.
-    if (reaction.emoji.name !== '⭐') return;
+    if (reaction.emoji.name !== '⭐') return message.channel.send(reaction.emoji.name);
      // Here we check to see if the person who reacted is the person who sent the original message.
 
-     // This line needs to be replaced. Mods may want to promote their own work.
+     // This line needs to be replaced. Mods may want to promote their own work but also should be the only ones able to use this feature.
     if (message.author.id === user.id) return message.channel.send(`${user}, you cannot star your own messages.`);
     // This is our final check, checking to see if message was sent by a bot.
     if (message.author.bot) return message.channel.send(`${user}, you cannot star bot messages.`);
@@ -70,5 +70,5 @@ module.exports = class {
         .setImage(image);
       await starChannel.send({ embed });
     }
-
-}
+  };
+};

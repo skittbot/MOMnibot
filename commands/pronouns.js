@@ -1,4 +1,4 @@
-exports.run = async (client, message, args) {
+exports.run = async (client, message, args) => {
 
 if(!args || args.length < 1) {
   return message.reply("This is the pronoun command! This is how to use it :) ");
@@ -22,7 +22,7 @@ switch(args[0]) {
   break;
 
   case 'approveall':
-  // 
+  //
   break;
 
   case 'deny':
@@ -32,8 +32,7 @@ switch(args[0]) {
   default:
   //display help screen if nothing works
   break;
-}
-
+  }
 };
 
 function displayHelp () {
