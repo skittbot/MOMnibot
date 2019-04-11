@@ -4,10 +4,10 @@ module.exports = (client, message) => {
   if (message.author.bot) return;
   if (message.guild) {
   // Ignore messages not starting with the prefix (in config.json)
-  if (message.content.indexOf(client.config.prefix) !== 0) return;
+  if (message.content.indexOf(client.config.settings.prefix) !== 0) return;
   message.guild.fetchMember(message.author);
   // Our standard argument/command name definition.
-  const args = message.content.slice(client.config.prefix.length).trim().split(/ +/g);
+  const args = message.content.slice(client.config.settings.prefix.length).trim().split(/ +/g);
   const command = args.shift().toLowerCase();
 
   // Grab the command data from the client.commands Enmap
