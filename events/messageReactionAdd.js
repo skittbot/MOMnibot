@@ -7,8 +7,16 @@ module.exports = async (client, reaction, user) => {
   const anyEmbeds = await message.embeds[0];
   //put embed code here:
   var image = message.attachments.size > 0 ? await extension(reaction, message.attachments.array()[0].url,message) : '';
-  if ((image==='') && anyEmbeds.type === "image") image = anyEmbeds.url;
-
+  var extraImages = [];
+  if (message.attachments.size > 1) {
+    for(let i = 1; i < message.attachments.size; i++) {
+      let extraImage = await extension(reaction, message.attachments.array()[i].url,message) : '';
+      if (!(extraimage === '')) extraImages.push(extraImages);
+    }
+  }
+  if (anyEmbeds) {
+    if ((image==='') && anyEmbeds.type === "image") image = anyEmbeds.url;
+  }
   const embed = await {
     "description": message.cleanContent,
     "url": message.url,
@@ -27,11 +35,16 @@ module.exports = async (client, reaction, user) => {
     },
     "fields": []
   };
+  artboard.send({ embed });
+  if (extraImages.size > 0) {
+    var moreEmbed = embed;
+    for(let i = 0, i < extraImages, i++) {
+      moreEmbed.image.url = extraImages[i];
+      artboard.send({ moreEmbed});
+    }
+  }
 
-
-
-
-  return artboard.send({ embed });
+  return;
 };
 
 async function extension(reaction, attachment,message) {
