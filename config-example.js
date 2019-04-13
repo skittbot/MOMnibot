@@ -8,6 +8,7 @@ const config = {
     "debug": "false",
     "prefix": "~",
     "artboardName":"art-gallery",
+    "creative":"creative",
     "pronouns":false
   }
 

@@ -1,5 +1,6 @@
 module.exports = async (client, reaction, user) => {
   const message = reaction.message;
+  if (message.channel.name === client.config.settings.creative) {
   if (!message.member.hasPermission('MANAGE_MESSAGES')) return;
   if (message.author.bot) return;
   client.galleryEmote.ensure(message.guild.id,{"galleryEmoji":""});
@@ -62,6 +63,7 @@ module.exports = async (client, reaction, user) => {
   }
 
   return;
+}
 };
 
 async function extension(reaction, attachment,message) {
