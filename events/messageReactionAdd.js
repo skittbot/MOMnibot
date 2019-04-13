@@ -1,7 +1,8 @@
 module.exports = async (client, reaction, user) => {
   const message = reaction.message;
   if (message.channel.name === client.config.settings.creative) {
-  if (!message.member.hasPermission('MANAGE_MESSAGES')) return;
+  const reactor = await message.guild.fetchMember(user);
+  if (!reactor.hasPermission('MANAGE_MESSAGES')) return;
   if (message.author.bot) return;
   client.galleryEmote.ensure(message.guild.id,{"galleryEmoji":""});
   const gEmoji = await client.galleryEmote.get(message.guild.id);
