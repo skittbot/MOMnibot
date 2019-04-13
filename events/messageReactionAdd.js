@@ -27,9 +27,9 @@ module.exports = async (client, reaction, user) => {
   if (anyEmbeds) {
     if ((image==='') && anyEmbeds.type === "image") image = anyEmbeds.url;
   }
-  const possibleFile = ((message.attachments.size > 0) && (image === '')) ? message.attachments.array()[0]: false;
+  const possibleFile = ((message.attachments.size > 0) && (image === '')) ? await message.attachments.array()[0].url.concat('\n'): '';
   const embed = await { embed: {
-    "description": message.cleanContent,
+    "description": possibleFile.concat(message.cleanContent),
     "url": message.url,
     "color": 11103793,
     "timestamp": new Date(),
@@ -46,11 +46,9 @@ module.exports = async (client, reaction, user) => {
     },
     "fields": []
   }};
-  if(possibleFile) {
-    await artboard.send(embed,possibleFile);
-  } else {
-    await artboard.send(embed);
-  }
+
+  await artboard.send(embed);
+
   //debug
   //console.log(extraImages);
   //console.log(extraImages.length);
