@@ -2,7 +2,8 @@ module.exports = async (client, reaction, user) => {
   const message = reaction.message;
   if (!message.member.hasPermission('MANAGE_MESSAGES')) return;
   if (message.author.bot) return;
-  const gEmoji = client.galleryEmote.ensure(message.guild.id,{"galleryEmoji":""});
+  client.galleryEmote.ensure(message.guild.id,{"galleryEmoji":""});
+  const gEmoji = client.galleryEmote.get(message.guild.id,{"galleryEmoji":""});
   if (!gEmoji) return;
   if (reaction.emoji.name !== gEmoji.name) return console.log(gEmoji.name + " compared to " + reaction.emoji.name);
   // message.channel.send("well, i saw it.  what else do you want. this was posted in: " + message.channel);
