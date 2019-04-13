@@ -5,7 +5,7 @@ module.exports = async (client, reaction, user) => {
   client.galleryEmote.ensure(message.guild.id,{"galleryEmoji":""});
   const gEmoji = client.galleryEmote.get(message.guild.id);
   if (!gEmoji) return console.log("nooooope");
-  if (reaction.emoji.name !== gEmoji.name) return console.log(gEmoji.name + " compared to " + reaction.emoji.name);
+  if (reaction.emoji.name !== gEmoji.name) return console.log(gEmoji + " compared to " + reaction.emoji.name);
   // message.channel.send("well, i saw it.  what else do you want. this was posted in: " + message.channel);
   const artboardChannel = client.config.settings.artboardName;
   const artboard = await message.guild.channels.find(channel => channel.name === artboardChannel);
