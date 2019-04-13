@@ -16,6 +16,11 @@ fs.readdir("./events/", (err, files) => {
   });
 });
 
+client.galleryEmote = new Enmap({
+  name: "emotes for gallery",
+  autoFetch: true,
+  fetchAll: false
+});
 client.commands = new Enmap();
 client.fcs = new Enmap({
   name: "friend codes",
