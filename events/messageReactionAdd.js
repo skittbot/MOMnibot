@@ -1,6 +1,6 @@
 module.exports = async (client, reaction, user) => {
   const message = reaction.message;
-  if (reaction.emoji.name !== 'twerby') return;
+  if (reaction.emoji.name !== 'miilove') return;
   if (!message.member.hasPermission('MANAGE_MESSAGES')) return;
   if (message.author.bot) return;
   // message.channel.send("well, i saw it.  what else do you want. this was posted in: " + message.channel);
