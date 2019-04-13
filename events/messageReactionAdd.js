@@ -4,7 +4,7 @@ module.exports = async (client, reaction, user) => {
   if (message.author.bot) return;
   client.galleryEmote.ensure(message.guild.id,{"galleryEmoji":""});
   const gEmoji = await client.galleryEmote.get(message.guild.id);
-  const gEmojiName = await gEmoji.name;
+  const gEmojiName = await gEmoji.galleryEmoji;
   if (!gEmojiName) return console.log("nooooope");
   if (reaction.emoji.name !== gEmojiName) return console.log(gEmojiName + " compared to " + reaction.emoji.name);
   // message.channel.send("well, i saw it.  what else do you want. this was posted in: " + message.channel);
