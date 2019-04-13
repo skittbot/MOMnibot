@@ -42,7 +42,8 @@ module.exports = async (client, reaction, user) => {
     },
     "author": {
       "name": `Amazing artwork by ${message.author.username} | (${message.author.tag})!`,
-      "icon_url": message.author.displayAvatarURL
+      "icon_url": message.author.displayAvatarURL,
+      "url": message.url
     },
     "fields": []
   }};
