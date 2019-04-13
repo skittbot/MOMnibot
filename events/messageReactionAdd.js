@@ -1,8 +1,11 @@
 module.exports = async (client, reaction, user) => {
   const message = reaction.message;
-  if (reaction.emoji.name !== 'miilove') return;
   if (!message.member.hasPermission('MANAGE_MESSAGES')) return;
   if (message.author.bot) return;
+  client.galleryEmote.ensure(message.guild.id,{"galleryEmoji":""});
+  const gEmoji = await client.galleryEmote.get(message.guild.id);
+  if (!gEmoji) return;
+  if (reaction.emoji.name !== gEmotji) return;
   // message.channel.send("well, i saw it.  what else do you want. this was posted in: " + message.channel);
   const artboardChannel = client.config.settings.artboardName;
   const artboard = await message.guild.channels.find(channel => channel.name === artboardChannel);
