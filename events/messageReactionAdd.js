@@ -27,6 +27,7 @@ module.exports = async (client, reaction, user) => {
   if (anyEmbeds) {
     if ((image==='') && anyEmbeds.type === "image") image = anyEmbeds.url;
   }
+  const possibleFile = ((message.attachments.size > 0) && (image === '')) ? message.attachments.array()[0]: false;
   const embed = await { embed: {
     "description": message.cleanContent,
     "url": message.url,
@@ -45,8 +46,11 @@ module.exports = async (client, reaction, user) => {
     },
     "fields": []
   }};
-  await artboard.send(embed);
-
+  if(possibleFile) {
+    await artboard.send(embed,possibleFile);
+  } else {
+    await artboard.send(embed);
+  }
   //debug
   //console.log(extraImages);
   //console.log(extraImages.length);
