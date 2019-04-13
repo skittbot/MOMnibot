@@ -5,8 +5,10 @@ const config = {
   "ownerID": "151821197602979840",
   // other server settings
   "settings": {
-    "debug": "true",
-    "prefix": "~"
+    "debug": "false",
+    "prefix": "~",
+    "artboardName":"art-gallery",
+    "pronouns":false
   }
 
 };

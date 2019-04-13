@@ -1,5 +1,7 @@
 exports.run = async (client, message, args) => {
 
+if(!client.config.settings.pronouns) return;
+
 if(!args || args.length < 1) {
   return message.reply("This is the pronoun command! This is how to use it :) ");
 }

@@ -1,23 +1,27 @@
 module.exports = async (client, reaction, user) => {
   const message = reaction.message;
-  message.channel.send("well, i saw it.  what else do you want. this was posted in: " + message.channel);
-  const artboardChannel = "artboard";
+  if (reaction.emoji.name !== 'twerby') return;
+  if (!message.member.hasPermission('MANAGE_MESSAGES')) return;
+  if (message.author.bot) return;
+  // message.channel.send("well, i saw it.  what else do you want. this was posted in: " + message.channel);
+  const artboardChannel = client.config.settings.artboardName;
   const artboard = await message.guild.channels.find(channel => channel.name === artboardChannel);
-  if (!artboard) return message.channel.send("whoops you done goofed it");
+  if (!artboard) return message.channel.send(`It doesn't look like this server has a channel called ${artboardChannel}.`);
   const anyEmbeds = await message.embeds[0];
   //put embed code here:
   var image = message.attachments.size > 0 ? await extension(reaction, message.attachments.array()[0].url,message) : '';
   var extraImages = [];
+  var extraImage = '';
   if (message.attachments.size > 1) {
     for(let i = 1; i < message.attachments.size; i++) {
-      let extraImage = await extension(reaction, message.attachments.array()[i].url,message) : '';
-      if (!(extraimage === '')) extraImages.push(extraImages);
+      extraImage = await extension(reaction, message.attachments.array()[i].url,message);
+      if (!(extraImage === '')) await extraImages.push(extraImage);
     }
   }
   if (anyEmbeds) {
     if ((image==='') && anyEmbeds.type === "image") image = anyEmbeds.url;
   }
-  const embed = await {
+  const embed = await { embed: {
     "description": message.cleanContent,
     "url": message.url,
     "color": 11103793,
@@ -34,14 +38,23 @@ module.exports = async (client, reaction, user) => {
       "icon_url": message.author.displayAvatarURL
     },
     "fields": []
-  };
-  artboard.send({ embed });
-  if (extraImages.size > 0) {
-    var moreEmbed = embed;
-    for(let i = 0, i < extraImages, i++) {
-      moreEmbed.image.url = extraImages[i];
-      artboard.send({ moreEmbed});
+  }};
+  await artboard.send(embed);
+
+  //debug
+  //console.log(extraImages);
+  //console.log(extraImages.length);
+
+  if (extraImages.length > 0) {
+      var i = 0;
+      while(i < extraImages.length) {
+          var moreEmbed = await embed;
+        moreEmbed.embed.image.url = await extraImages[i];
+        moreEmbed.embed.description = await message.cleanContent.concat(` (page ${i+2})`);
+      await artboard.send(moreEmbed);
+      i++;
     }
+    //}
   }
 
   return;
@@ -55,7 +68,8 @@ async function extension(reaction, attachment,message) {
   return attachment;
 };
 
-async function addLinkedEmbeds(message) {
+async function addMoreEmbeds(item, i, message) {
+
 
 
 };
