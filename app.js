@@ -5,6 +5,9 @@ const fs = require("fs");
 const client = new Discord.Client();
 const config = require("./config.js");
 
+var muteList = [];
+
+client.muteList = muteList;
 client.config = config;
 
 fs.readdir("./events/", (err, files) => {
