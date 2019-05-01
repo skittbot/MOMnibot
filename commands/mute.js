@@ -9,9 +9,9 @@ exports.run = async (client, message, args) => {
   //it makes sure that the time is above nothing, and is actually a number too.  oh goodie
   var muteTime = parseInt(args[1],10);
   muteTime = muteTime * 1000 * 60 * 60;
-  if (muteTime < 1) muteTime = 5000;
+  if (muteTime < 1) muteTime = 20000;
   var isMuted = await mutedUser.roles.has(muteRole.id);
-  if (isMuted) return message.channel.send(`${mutedUser.displayName} has been muted.`;
+  if (isMuted) return message.channel.send(`${mutedUser.displayName} has been muted.`);
   await mutedUser.addRole(muteRole).catch(console.error);
   message.channel.send(`${mutedUser.displayName} has been muted.`);
     client.setTimeout(function () {
