@@ -18,6 +18,7 @@ module.exports = async (client, reaction, user) => {
   var image = message.attachments.size > 0 ? await extension(reaction, message.attachments.array()[0].url,message) : '';
   var extraImages = [];
   var extraImage = '';
+  await message.react('bun');
   if (message.attachments.size > 1) {
     for(let i = 1; i < message.attachments.size; i++) {
       extraImage = await extension(reaction, message.attachments.array()[i].url,message);
