@@ -1,5 +1,5 @@
 exports.run = async (client, message, args) => {
-  if(!message.member.hasPermission('MANAGE_CHANNELS')) return console.log('{$message.member} tried to mute someone.');
+  if(!message.member.hasPermission('MANAGE_ROLES')) return console.log('{$message.member} tried to mute someone.');
   if(!args || args.length != 2) return message.channel.send(`The command for muting a user is ${client.config.settings.prefix}mute [*@username*] [*hours*]`);
   var mutedUser = await message.mentions.members.first();
   if (!mutedUser) return message.channel.send("The specified user could not be found.");
