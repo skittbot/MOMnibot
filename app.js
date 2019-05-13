@@ -21,6 +21,13 @@ client.galleryEmote = new Enmap({
   autoFetch: true,
   fetchAll: false
 });
+
+client.approvedLinks = new Enmap({
+  name: "approved discord invite links",
+  autoFetch: true,
+  fetchAll: false
+});
+
 client.commands = new Enmap();
 client.fcs = new Enmap({
   name: "friend codes",
