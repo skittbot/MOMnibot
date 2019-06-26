@@ -35,6 +35,27 @@ client.fcs = new Enmap({
   fetchAll: false
 });
 
+client.badgeList = new Enmap({
+  name: "list of all badges",
+  autoFetch: true,
+  fetchAll: false
+});
+
+(async function() {
+  await client.badgeList.defer;
+  console.log(client.badgeList.size + " keys loaded");
+  client.badgeList.ensure("master list",[]);
+  console.log(client.badgeList.get("master list"));
+  // Ready to use!
+}());
+
+
+client.userProfiles = new Enmap({
+  name: "list of users profiles",
+  autoFetch: true,
+  fetchAll: false
+});
+
 fs.readdir("./commands/", (err, files) => {
   if (err) return console.error(err);
   files.forEach(file => {
