@@ -55,7 +55,7 @@ exports.run = (client, message, args) => {
           return console.log(e);
         }
       break;
-
+      
       case 'give':
         if (args.length < 2) return message.channel.send("the syntax for this command is !badge give [_badge name_] [_user mentions_]");
         var bName = initialCaps(args[0]);
@@ -93,7 +93,7 @@ exports.run = (client, message, args) => {
         if (bUsers === []) return message.channel.send("please mention the users who will be recieving the badges");
         for(var person in bUsers) {
           try {
-            client.userProfiles.ensure(bUsers[person],{});
+            client.userProfiles.ensure(bUsers[person],{"team":"none","badges":[],"profColor":"#7289DA"});
             client.userProfiles.ensure(bUsers[person],[],"badges");
             if (client.userProfiles.get(bUsers[person],"badges").includes(bName)) console.log("duplicate badge detected");
             client.userProfiles.push(bUsers[person],bName,"badges");
@@ -111,7 +111,7 @@ exports.run = (client, message, args) => {
         try {
           if (!anyTarget) anyTarget = message.author;
           var displayedUser = anyTarget.username;
-          var userP = client.userProfiles.ensure(displayedUser,{"team":"none","badges":[]});
+          var userP = client.userProfiles.ensure(displayedUser,{"team":"none","badges":[],"profColor":"#7289DA"});
           console.log(userP.badges);
           message.channel.send(`user: ${displayedUser} | their badges: ${userP.badges}`,{files:["http://catputer.com/marm/miitopia-badge-equipment-master.png","http://catputer.com/cat.jpg"]});
         } catch(e) {
