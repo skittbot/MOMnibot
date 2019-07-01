@@ -8,7 +8,7 @@ const { createCanvas, loadImage } = require('canvas');
 
 const imageUrlRegex = /\?size=2048$/g;
 
-async function profile(member, info, bSash) {
+async function profile(member, info, bSash, tPage, tBadges) {
   // We only need the level, and points values, we don't need the user or guild id.
   const { team, badges, profColor } = info;
   // We're grabbing the body out of snekfetch's get method, but at the same time we're assigning a variable
@@ -27,20 +27,21 @@ async function profile(member, info, bSash) {
   const testbadgebuf = await testbadge.buffer();
 
 
-  var profilePic = new Canvas(400, 180)
+  var profilePic = new Canvas(420, 300)
     // Create the Blurple rectangle on the right side of the image.
     .setColor(profColor)
-    .addRect(84, 0, 316, 180)
+    .addRect(84, 0, 336, 300)
     // Create the "Dark, but not black" boxes for the left side of the image
     // and the text boxes on the right.
     .setColor("#2C2F33")
-    .addRect(0, 0, 84, 180)
-    .addRect(169, 26, 231, 46)
-    .addRect(169, 80, 231, 74)
+    .addRect(0, 0, 84, 300)
+    .addRect(169, 10, 223, 26)
+    .addRect(160, 50, 240, 240)
+    .addRect(20, 154, 128, 136)
     // Create a shadow effect for the avatar placement.
-    .setShadowColor("rgba(22, 22, 22, 1)") // This is a nice colour for a shadow.
-    .setShadowOffsetY(5) // Drop the shadow by 5 pixels.
-    .setShadowBlur(10) // Blur the shadow by 10.
+    // .setShadowColor("rgba(22, 22, 22, 1)") // This is a nice colour for a shadow.
+    // .setShadowOffsetY(5) // Drop the shadow by 5 pixels.
+    // .setShadowBlur(10) // Blur the shadow by 10.
     // This circle is 2 pixels smaller in the radius to prevent a pixel border.
     .addCircle(84, 90, 62)
     .addCircularImage(avatar, 84, 90, 64)
@@ -59,54 +60,40 @@ async function profile(member, info, bSash) {
     // Set the colour to white, since we have a dark background for all the text boxes.
     .setColor("#FFFFFF")
     // Add the name variable.
-    .addText(team, 285, 54)
+    .addText(`Team ${team}`, 285, 28)
     // Using template literals, you can add text and variables, we're applying the toLocaleString()
     // to break up the number into a nice readable format.
-    .addText(name, 84, 159);
+    .addText(name, 84, 159)
+    .addText(`Total Badges: ${tBadges}`, 84 , 184)
+    .addText(tPage, 410, 295);
     var n = 0;
+    var w = 0;
+    var done = false;
     for await (const stre of bSash) {
-      await profilePic.addImage(stre, 173+n*40, 84, 40, 40);
-      console.log(`displayed a badge at ${173+n*40}`);
+      if (!done) await profilePic.addImage(stre, 160+n*40, 54+w*40, 40, 40);
+      console.log(`displayed a badge at ${160+n*40}x${54+w*40}`);
       n++;
+      if (n >= 6) {
+        n = 0;
+        w++;
+        if (w >= 6) done = true;
+      }
     }
-    // profilePic.addImage(bSash[0], 173, 84, 40, 40);
-    // profilePic.addRect(173, 84, 40, 40);
-
-    /*await bSash.forEach(async function(i,n) {
-
-      return await profilePic.addImage(i, 173, 84, 40, 40);
-    });*/
     return await profilePic.toBuffer();
-    // Let's add all the points!
-
-
-
-
-    //profilePic
-    //return profilePic.toBuffer();
 }
 
-async function gatherBadges(client,sash) {
+async function gatherBadges(client,fullSash, bPage) {
   var badgeStream = [];
   var badgeGet;
   var badgeResult;
+  if (bPage*36 < fullSash.length) bPage = 0;
+  var sash = fullSash.slice(bPage*36);
   for await (const x of sash){
     badgeGet = await fetch(client.badgeList.get(x,"url"));
     badgeResult = await badgeGet.buffer();
     await badgeStream.push(badgeResult);
     console.log(`found badge: ${x}`);
   }
-
-
-/*
-  await sash.forEach(async function(x){
-    if (client.badgeList.has(x)) {
-      badgeGet = await fetch(client.badgeList.get(x,"url"));
-      badgeResult = await badgeGet.buffer();
-      await badgeStream.push(badgeResult);
-      console.log(`found badge: ${x}`);
-    }
-  });*/
   return badgeStream;
 };
 
@@ -126,12 +113,19 @@ exports.run = async (client, message, args) => {
       });*/
     client.userProfiles.set(key,{"team":"none","badges":[],"profColor":"#7289DA"});
     }
+    var page = 1;
+    if (!(args || args.length < 1)) {
+      if (typeof args[0] == 'number') page = args[0];
+      if (page < 1) page = 1;
+    }
+    page--;
     if (!client.userProfiles.has(key,"profColor")) client.userProfiles.set(key,"#7289DA","profColor");
     // We await both the message.channel.send, and the profile function.
     // Also remember, we wanted to pass the member object, and the points object.
     // Since we're creating a user profile, we should give it a unique file name.
-    const badgeSash = await gatherBadges(client,client.userProfiles.get(key,"badges"));
-    const buffer = await profile(message.member, client.userProfiles.get(key),badgeSash);
+    const badgeSash = await gatherBadges(client,client.userProfiles.get(key,"badges"),page);
+    page++;
+    const buffer = await profile(message.member, client.userProfiles.get(key),badgeSash,page,client.userProfiles.get(key,"badges").length);
     const filename = `profile-${message.author.id}.jpg`;
     const attachment = new Attachment(buffer, filename);
     await message.channel.send(attachment);
