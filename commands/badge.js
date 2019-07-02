@@ -1,5 +1,35 @@
 exports.run = (client, message, args) => {
-    if(!message.member.hasPermission('MANAGE_ROLES')) return console.log('{$message.member} attempted to use the badge command.');
+    if(!message.member.hasPermission('MANAGE_ROLES')) {
+
+      if(!args || args.length < 1) return message.channel.send('The syntax for this command is: !badge [_badge name_]');
+      var subBadge = args.join("_").toLowerCase();
+      subBadge = initialCaps(subBadge);
+      const badgeL = client.badgeList.get("master list");
+      if(!badgeL.includes(subBadge)) return message.channel.send('The requested badge does not exist.');
+      if (!client.badgeList.has(subBadge,"creator")) client.badgeList.set(subBadge,"unknown","creator");
+      const thisBadge = client.badgeList.get(subBadge);
+      try {
+        message.channel.send({
+          "embed": {
+            "title": subBadge,
+            "description": thisBadge.description,
+            "color": 7867799,
+            "footer": {
+              "text": "badge created by: "+ thisBadge.creator
+            },
+            "thumbnail": {
+            "url": thisBadge.url
+            }
+          }
+        });
+      }catch(e){
+        console.log('there was an issue showing info from a badge:');
+        return console.log(e);
+      }
+      return;
+
+    }
+
     if(!args || args.length < 1) {
       return message.channel.send('This command adds, and removes badges from the badge list, and can also be used to pull up a badge\'s description.');
     }
@@ -11,13 +41,14 @@ exports.run = (client, message, args) => {
     switch(subCommand) {
 
       case 'add':
-        if (args.length < 3) return message.channel.send("the syntax for this command is: !badge add [_badge name_] [_badge image url_] [_badge description]");
-        const desc = args.slice(2).join(" ");
-        console.log(`adding badge: ${args[0]} ${args[1]} ${desc}`);
+        if (args.length < 4) return message.channel.send("the syntax for this command is: !badge add [_badge name_] [_badge image url_] [_badge creator_] [_badge description]");
+        const desc = args.slice(3).join(" ");
+        console.log(`adding badge: ${args[0]} ${args[1]} ${args[2]} ${desc}`);
         var bName = initialCaps(args[0]);
         var bURL = args[1];
+        var wonderfulPerson = args[2];
         try {
-          client.badgeList.set(bName,{ url:bURL , description: desc });
+          client.badgeList.set(bName,{ url:bURL , description: desc , creator: wonderfulPerson});
           client.badgeList.push("master list", bName);
           message.channel.send('badge added!');
           console.log(`badge successfully added`);
@@ -48,14 +79,14 @@ exports.run = (client, message, args) => {
         console.log(`finding badge: ${bName}`);
         try {
           var dispBadge = client.badgeList.get(bName);
-          message.channel.send(`badge name: ${bName} url: ${dispBadge.url} description: ${dispBadge.description}`);
+          message.channel.send(`this is a debug command and shouldn't be used  |||  badge name: ${bName} url: ${dispBadge.url} description: ${dispBadge.description}`);
           console.log('badge successfully displayed');
         } catch(e) {
           console.log('there was an error displaying a badge');
           return console.log(e);
         }
       break;
-      
+
       case 'give':
         if (args.length < 2) return message.channel.send("the syntax for this command is !badge give [_badge name_] [_user mentions_]");
         var bName = initialCaps(args[0]);
@@ -113,14 +144,44 @@ exports.run = (client, message, args) => {
           var displayedUser = anyTarget.username;
           var userP = client.userProfiles.ensure(displayedUser,{"team":"none","badges":[],"profColor":"#7289DA"});
           console.log(userP.badges);
-          message.channel.send(`user: ${displayedUser} | their badges: ${userP.badges}`,{files:["http://catputer.com/marm/miitopia-badge-equipment-master.png","http://catputer.com/cat.jpg"]});
+          message.channel.send(`this is a debug command. it shouldn't be used.  ||| user: ${displayedUser} | their badges: ${userP.badges}`,{files:["http://catputer.com/marm/miitopia-badge-equipment-master.png","http://catputer.com/cat.jpg"]});
         } catch(e) {
           console.log("there was an error fetching the user");
           console.log(e);
         }
       break;
-    }
 
+      default:
+        var subBadge = subCommand;
+        if (args.length > 0) subBadge = subBadge + args.join("_").toLowerCase();
+        subBadge = initialCaps(subBadge);
+        const badgeL = client.badgeList.get("master list");
+        if(!badgeL.includes(subBadge)) return message.channel.send('The requested badge does not exist.');
+        if (!client.badgeList.has(subBadge,"creator")) client.badgeList.set(subBadge,"unknown","creator");
+        const thisBadge = client.badgeList.get(subBadge);
+        try {
+          message.channel.send({
+            "embed": {
+              "title": subBadge,
+              "description": thisBadge.description,
+              "color": 7867799,
+              "footer": {
+                "text": "badge created by: "+ thisBadge.creator
+              },
+              "thumbnail": {
+              "url": thisBadge.url
+              }
+            }
+          });
+          //message.channel.send('Badge: '+subBadge+'\nDescription: '+thisBadge.description,{files:[thisBadge.url]});
+        }catch(e){
+          console.log('there was an issue showing info from a badge:');
+          return console.log(e);
+        }
+        //return console.log('{$message.member} used the the badge command.');
+      break;
+
+    }
 }
 
 /*

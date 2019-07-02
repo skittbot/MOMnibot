@@ -9,7 +9,7 @@ exports.run = (client, message, args) => {
     case "color":
       if (theEdit.length !== 6) return message.channel.send("To set your profile color, you need a 6 digit color hex code. You do not need to supply a #.")
       var finalEdit = "#"+theEdit;
-      client.userProfiles.ensure(message.author.username,{"team":"none","badges":[],"profColor":"#7289DA"});
+      client.userProfiles.ensure(message.author.username,{"team":"none","badges":[],"profColor":"#7289DA","profBGI":"http://catputer.com/imgs/blankcard.png"});
       client.userProfiles.set(message.author.username,finalEdit,"profColor");
       return message.channel.send("You have successfully set your profile color.");
     break;
@@ -17,10 +17,24 @@ exports.run = (client, message, args) => {
     case "team":
       var finalEdit = theEdit.replace(/[^a-z0-9]/gi, ' ');
       finalEdit = initialCaps(finalEdit);
-      client.userProfiles.ensure(message.author.username,{"team":"none","badges":[],"profColor":"#7289DA"});
+      client.userProfiles.ensure(message.author.username,{"team":"none","badges":[],"profColor":"#7289DA","profBGI":"http://catputer.com/imgs/blankcard.png"});
       client.userProfiles.set(message.author.username,finalEdit,"team");
       return message.channel.send(`You have joined the team: ${finalEdit}.`);
     break;
+
+    case "bg":
+      client.userProfiles.ensure(message.author.username,{"team":"none","badges":[],"profColor":"#7289DA","profBGI":"http://catputer.com/imgs/blankcard.png"});
+      client.userProfiles.set(message.author.username,'http://catputer.com/joe/testcard.png',"profBGI");
+      return message.channel.send('you set your profile bg to the test image');
+    break;
+
+    case "nobg":
+      client.userProfiles.ensure(message.author.username,{"team":"none","badges":[],"profColor":"#7289DA","profBGI":"http://catputer.com/imgs/blankcard.png"});
+      client.userProfiles.set(message.author.username,"http://catputer.com/imgs/blankcard.png","profBGI");
+      return message.channel.send('you set your profile bg to nothing');
+    break;
+
+
   }
 }
 
