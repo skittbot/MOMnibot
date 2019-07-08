@@ -88,7 +88,7 @@ exports.run = (client, message, args) => {
       break;
 
       case 'give':
-        if (args.length < 2) return message.channel.send("the syntax for this command is !badge give [_badge name_] [_user mentions_]");
+        if (args.length < 2) return message.channel.send("The syntax for this command is !badge give [_badge name_] [_user mentions_]");
         var bName = initialCaps(args[0]);
         var checkList = client.badgeList.get("master list");
         if (!checkList.includes(bName)) return message.channel.send("this badge does not exist");
@@ -99,16 +99,6 @@ exports.run = (client, message, args) => {
         var bUsers = [];
         if (bRecips.size === 0) return message.channel.send("please mention the users who will be recieving the badges");
         var currUser;
-        /*for(var key in bRecips) {
-          try {
-            currUser = bRecips[key].username;
-            bUsers.push(currUser);
-            console.log(currUser);
-          } catch (e) {
-            console.log(`error with detecting user #${key}`);
-            console.log(e);
-          }
-        }*/
 
         bRecips.forEach(function(x){
           try {
@@ -119,9 +109,8 @@ exports.run = (client, message, args) => {
           }
         });
 
-
         console.log(bUsers);
-        if (bUsers === []) return message.channel.send("please mention the users who will be recieving the badges");
+        if (bUsers === []) return message.channel.send("Please mention the users who will be recieving the badges");
         for(var person in bUsers) {
           try {
             client.userProfiles.ensure(bUsers[person],{"team":"none","badges":[],"profColor":"#7289DA"});
@@ -129,7 +118,22 @@ exports.run = (client, message, args) => {
             if (client.userProfiles.get(bUsers[person],"badges").includes(bName)) console.log("duplicate badge detected");
             client.userProfiles.push(bUsers[person],bName,"badges");
             // note: don't let it actually do this.  combine it all into one message
-            message.channel.send(`added a badge ${bName} to user ${bUsers[person]}`);
+            //message.channel.send(`added a badge ${bName} to user ${bUsers[person]}`);
+            if (!client.badgeList.has(bName,"creator")) client.badgeList.set(bName,"unknown","creator");
+            const thisBadge = client.badgeList.get(bName);
+            message.channel.send({
+              "embed": {
+                "title": `${bUsers[person]} has earned a badge!`,
+                "description": '**' + bName +'**\n' + thisBadge.description,
+                "color": 12235237,
+                "footer": {
+                  "text": "badge created by: "+ thisBadge.creator
+                },
+                "thumbnail": {
+                "url": thisBadge.url
+                }
+              }
+            });
           } catch(e) {
             console.log(`error with adding badge to user #${person}`);
             console.log(e);

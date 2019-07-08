@@ -41,6 +41,12 @@ client.badgeList = new Enmap({
   fetchAll: false
 });
 
+client.bgList = new Enmap({
+  name: "list of all backgrounds",
+  autoFetch: true,
+  fetchAll: false
+});
+
 (async function() {
   await client.badgeList.defer;
   console.log(client.badgeList.size + " keys loaded");
