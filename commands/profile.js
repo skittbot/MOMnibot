@@ -4,7 +4,7 @@ const { Attachment } = require("discord.js"); // This is to send the image via d
 const fetch = require("node-fetch"); // This is to fetch the user avatar and convert it to a buffer.
 const fsn = require('fs-nextra');
 const { createCanvas, loadImage } = require('canvas');
-Canvas.registerFont(resolve(join(__dirname, "./fonts/Whitney.ttf")), "Discord");
+Canvas.registerFont(resolve(join(__dirname, "../fonts/Whitney.ttf")), "Discord");
 
 const imageUrlRegex = /\?size=2048$/g;
 
