@@ -64,7 +64,7 @@ async function profile(member, info, bSash, tPage, tBadges) {
     // Let's center the text
     .setTextAlign("center")
     // I'm using a custom font, which I will show you how to add next.
-    .setTextFont("10pt Discord")
+    .setTextFont("10pt Whitney")
     // Set the colour to white, since we have a dark background for all the text boxes.
     .setColor("#FFFFFF")
     // Add the name variable.
