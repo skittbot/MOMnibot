@@ -43,9 +43,9 @@ async function profile(member, info, bSash, tPage, tBadges) {
     // and the text boxes on the right.
     .setColor("#2C2F33")
     //.addRect(0, 0, 84, 300)
-    .addRect(169, 10, 223, 26)
+    //.addRect(169, 10, 223, 26)
     .addRect(160, 50, 240, 240)
-    // .addRect(20, 160, 128, 36)
+    .addRect(20, 160, 128, 36)
     // Create a shadow effect for the avatar placement.
     // .setShadowColor("rgba(22, 22, 22, 1)") // This is a nice colour for a shadow.
     // .setShadowOffsetY(5) // Drop the shadow by 5 pixels.
