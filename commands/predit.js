@@ -14,13 +14,13 @@ exports.run = (client, message, args) => {
       return message.channel.send("You have successfully set your profile color.");
     break;
 
-    case "team":
+/*    case "team":
       var finalEdit = theEdit.replace(/[^a-z0-9]/gi, ' ');
       finalEdit = initialCaps(finalEdit);
       client.userProfiles.ensure(message.author.username,{"team":"none","badges":[],"profColor":"#7289DA","profBGI":"http://catputer.com/imgs/blankcard.png"});
       client.userProfiles.set(message.author.username,finalEdit,"team");
       return message.channel.send(`You have joined the team: ${finalEdit}.`);
-    break;
+    break; */
 
     case "bg":
       if (!client.bgList.has(theEdit)) return message.channel.send("The specified background does not exist. For a full list of backgrounds to choose from, try using the !prlist command.");

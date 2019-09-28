@@ -45,7 +45,7 @@ async function profile(member, info, bSash, tPage, tBadges) {
     //.addRect(0, 0, 84, 300)
     .addRect(169, 10, 223, 26)
     .addRect(160, 50, 240, 240)
-    .addRect(20, 160, 128, 36)
+    // .addRect(20, 160, 128, 36)
     // Create a shadow effect for the avatar placement.
     // .setShadowColor("rgba(22, 22, 22, 1)") // This is a nice colour for a shadow.
     // .setShadowOffsetY(5) // Drop the shadow by 5 pixels.
@@ -68,7 +68,7 @@ async function profile(member, info, bSash, tPage, tBadges) {
     // Set the colour to white, since we have a dark background for all the text boxes.
     .setColor("#FFFFFF")
     // Add the name variable.
-    .addText(`Team ${team}`, 285, 28)
+    //.addText(`Team ${team}`, 285, 28)
     // Using template literals, you can add text and variables, we're applying the toLocaleString()
     // to break up the number into a nice readable format.
     .addText(name, 84, 159)
