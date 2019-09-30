@@ -14,9 +14,6 @@ module.exports = (client, oldMember, newMember) => {
         client.userProfiles.push(key,currentTeams[i],"badges");
         var postTo = newMember.guild.channels.find(channel => channel.name === 'bot-spam');
         postTo.send('ok should have added the badge i guess');
-        }
-
-
       }
     }
   }
