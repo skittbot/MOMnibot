@@ -11,7 +11,7 @@ exports.run = (client, message, args) => {
     case "color":
       if (theEdit.length !== 6) return message.channel.send("The syntax for this command is: !predit color [_6-digit hex code without a #_]");
       var isHex = /^[0-9A-F]{6}$/i.test(theEdit);
-      if !isHex return message.channel.send("To set your profile color, you need a 6 digit color hex code. You do not need to supply a #.");
+      if !(isHex) return message.channel.send("To set your profile color, you need a 6 digit color hex code. You do not need to supply a #.");
       var finalEdit = "#"+theEdit;
       client.userProfiles.ensure(message.author.username,{"team":"none","badges":[],"profColor":"#7289DA","profBGI":"https://i.imgur.com/7okSCgl.png"});
       client.userProfiles.set(message.author.username,finalEdit,"profColor");
