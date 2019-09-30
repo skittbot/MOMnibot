@@ -47,6 +47,12 @@ client.bgList = new Enmap({
   fetchAll: false
 });
 
+client.teamList = new Enmap({
+  name: "teamList",
+  autoFetch: true,
+  fetchAll: true
+});
+
 (async function() {
   await client.badgeList.defer;
   console.log(client.badgeList.size + " keys loaded");
