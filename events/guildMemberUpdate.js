@@ -1,7 +1,7 @@
 module.exports = (client, oldMember, newMember) => {
   if (newMember.roles === oldMember.roles) return console.log('no role change this time');
   var currentTeams = client.teamList.keyArray();
-  console.log(`${oldMember.roles} compared to ${newMember.roles}`);
+  console.log(`${oldMember.roles.array()} compared to ${newMember.roles.array()}`);
   for(var i = 0;i<currentTeams.length;i++) {
     if (newMember.roles.find(role => role.name === currentTeams[i])) {
       if (!oldMember.roles.find(role => role.name === currentTeams[i])) {
