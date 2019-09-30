@@ -73,7 +73,7 @@ exports.run = (client, message, args) => {
         }
       break;
 
-      case 'disp':
+/*      case 'disp':
         if (args.length !== 1) return message.channel.send("the syntax for this test command is !badge disp [_badge name_]");
         var bName = initialCaps(args[0]);
         console.log(`finding badge: ${bName}`);
@@ -85,7 +85,7 @@ exports.run = (client, message, args) => {
           console.log('there was an error displaying a badge');
           return console.log(e);
         }
-      break;
+      break; */
 
       case 'give':
         if (args.length < 2) return message.channel.send("The syntax for this command is !badge give [_badge name_] [_user mentions_]");
@@ -141,7 +141,7 @@ exports.run = (client, message, args) => {
         }
       break;
 
-      case 'dispuser':
+/*      case 'dispuser':
         let anyTarget = message.mentions.users.first();
         try {
           if (!anyTarget) anyTarget = message.author;
@@ -153,7 +153,7 @@ exports.run = (client, message, args) => {
           console.log("there was an error fetching the user");
           console.log(e);
         }
-      break;
+      break; */
 
       default:
         var subBadge = subCommand;
