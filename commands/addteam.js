@@ -8,7 +8,7 @@ exports.run = (client, message, args) => {
   if (!roleName) return message.channel.send('The role has not been created yet.');
   if (!badgeExists) return message.channel.send('The badge has not been added yet.');
   client.teamList.set(subTeam,{'name':subTeam,'count':0});
-  return message.channel.send(`Team created: ${client.teamList.get(subTeam,'name')} with ${client.teamList.get(subteam,'count')} users.`);
+  return message.channel.send(`Team created: ${client.teamList.get(subTeam,'name')} with ${client.teamList.get(subTeam,'count')} users.`);
 
 
 };
