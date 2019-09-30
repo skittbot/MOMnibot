@@ -9,12 +9,29 @@ module.exports = (client, oldMember, newMember) => {
         var key = newMember.user.username;
         //set the key so it pulls up easier
         if (!client.userProfiles.has(key)) {
-          client.userProfiles.set(key,{"team":"none","badges":[],"profColor":"#7289DA","profBGI":"http://catputer.com/imgs/blankcard.png"});
+          client.userProfiles.set(key,{"team":"none","badges":[],"profColor":"#7289DA","profBGI":"https://i.imgur.com/7okSCgl.png"});
         }
         client.userProfiles.push(key,currentTeams[i],"badges");
         var postTo = newMember.guild.channels.find(channel => channel.name === 'bot-spam');
         client.teamList.inc(currentTeams[i],"count");
-        postTo.send('ok should have added the badge i guess');
+
+        const thisBadge = client.badgeList.get(currentTeams[i]);
+
+        postTo.send({
+          "embed": {
+            "title": `${key} has joined a team and earned a badge!`,
+            "description": '**' + currentTeams[i] +'**\n' + thisBadge.description,
+            "color": 12235237,
+            "footer": {
+              "text": "badge created by: "+ thisBadge.creator
+            },
+            "thumbnail": {
+            "url": thisBadge.url
+            }
+          }
+        });
+
+        //postTo.send('ok should have added the badge i guess');
       }
     }
   }
