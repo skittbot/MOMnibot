@@ -120,7 +120,7 @@ exports.run = async (client, message, args) => {
         // Using the predefined information below.
         user: message.author.id, guild: message.guild.id, points: 0, level: 1
       });*/
-    client.userProfiles.set(key,{"team":"none","badges":[],"profColor":"#7289DA","profBGI":"http://catputer.com/imgs/blankcard.png"});
+    client.userProfiles.set(key,{"team":"none","badges":[],"profColor":"#7289DA","profBGI":"https://i.imgur.com/7okSCgl.png"});
   } else {
 
     //this code is to check if the user has any removed badges, and remove them from their profile.
@@ -137,7 +137,7 @@ exports.run = async (client, message, args) => {
     }
     page--;
     if (!client.userProfiles.has(key,"profColor")) client.userProfiles.set(key,"#7289DA","profColor");
-    if (!client.userProfiles.has(key,"profBGI")) client.userProfiles.set(key,"http://catputer.com/imgs/blankcard.png","profBGI");
+    if (!client.userProfiles.has(key,"profBGI")) client.userProfiles.set(key,"https://i.imgur.com/7okSCgl.png","profBGI");
     // We await both the message.channel.send, and the profile function.
     // Also remember, we wanted to pass the member object, and the points object.
     // Since we're creating a user profile, we should give it a unique file name.

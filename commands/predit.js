@@ -1,5 +1,5 @@
 exports.run = (client, message, args) => {
-  if (args.length < 2) return message.channel.send("ok yeah here's a spot for stuff");
+  if (args.length < 2) return message.channel.send("You can customize your profile with this command. Please try _!predit color_, _!predit bg_, and _!predit nobg_ for more information.");
   const subCommand = args.shift().toLowerCase();
   const theEdit = args.join(" ");
   //const desc = args.slice(2).join(" ");
@@ -9,7 +9,7 @@ exports.run = (client, message, args) => {
     case "color":
       if (theEdit.length !== 6) return message.channel.send("To set your profile color, you need a 6 digit color hex code. You do not need to supply a #.")
       var finalEdit = "#"+theEdit;
-      client.userProfiles.ensure(message.author.username,{"team":"none","badges":[],"profColor":"#7289DA","profBGI":"http://catputer.com/imgs/blankcard.png"});
+      client.userProfiles.ensure(message.author.username,{"team":"none","badges":[],"profColor":"#7289DA","profBGI":"https://i.imgur.com/7okSCgl.png"});
       client.userProfiles.set(message.author.username,finalEdit,"profColor");
       return message.channel.send("You have successfully set your profile color.");
     break;
@@ -24,14 +24,14 @@ exports.run = (client, message, args) => {
 
     case "bg":
       if (!client.bgList.has(theEdit)) return message.channel.send("The specified background does not exist. For a full list of backgrounds to choose from, try using the !prlist command.");
-      client.userProfiles.ensure(message.author.username,{"team":"none","badges":[],"profColor":"#7289DA","profBGI":"http://catputer.com/imgs/blankcard.png"});
+      client.userProfiles.ensure(message.author.username,{"team":"none","badges":[],"profColor":"#7289DA","profBGI":"https://i.imgur.com/7okSCgl.png"});
       client.userProfiles.set(message.author.username,client.bgList.get(theEdit),"profBGI");
       return message.channel.send('You have successfully changed your profile background image.');
     break;
 
     case "nobg":
-      client.userProfiles.ensure(message.author.username,{"team":"none","badges":[],"profColor":"#7289DA","profBGI":"http://catputer.com/imgs/blankcard.png"});
-      client.userProfiles.set(message.author.username,"http://catputer.com/imgs/blankcard.png","profBGI");
+      client.userProfiles.ensure(message.author.username,{"team":"none","badges":[],"profColor":"#7289DA","profBGI":"https://i.imgur.com/7okSCgl.png"});
+      client.userProfiles.set(message.author.username,"https://i.imgur.com/7okSCgl.png","profBGI");
       return message.channel.send('Your background image has been removed.');
     break;
 
