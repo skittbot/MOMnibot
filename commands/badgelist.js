@@ -7,7 +7,7 @@ exports.run = (client, message, args) => {
   for(var key of names) {
     eachBadge.push({"name": key,"value":`[click to preview](${client.badgeList.get(key)})`});
   }
-  console.log(eachBG);
+  console.log(eachBadge);
   return message.channel.send('Here are a list of badges for this bot. To view what you have earned, use the following command: \n!profile',{
   "embed": {
     "color": 8317360,
