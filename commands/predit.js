@@ -1,5 +1,7 @@
 exports.run = (client, message, args) => {
-  if (args.length < 2) return message.channel.send("You can customize your profile with this command. Please try _!predit color_, _!predit bg_, and _!predit nobg_ for more information.");
+  if (args.length < 1) {
+    if ((args.length < 2) && (args[0] === "nobg")) return message.channel.send("You can customize your profile with this command. Please try _!predit color_, _!predit bg_, and _!predit nobg_ for more information.");
+  }
   const subCommand = args.shift().toLowerCase();
   const theEdit = args.join(" ");
   //const desc = args.slice(2).join(" ");
