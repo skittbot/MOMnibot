@@ -148,7 +148,7 @@ exports.run = (client, message, args) => {
           var displayedUser = anyTarget.username;
           var userP = client.userProfiles.ensure(displayedUser,{"team":"none","badges":[],"profColor":"#7289DA"});
           console.log(userP.badges);
-          message.channel.send(`this is a debug command. it shouldn't be used.  ||| user: ${displayedUser} | their badges: ${userP.badges}`,{files:["http://catputer.com/marm/miitopia-badge-equipment-master.png","http://catputer.com/cat.jpg"]});
+          message.channel.send(`this is a debug command. it shouldn't be used.  ||| user: ${displayedUser} | their badges: ${userP.badges}`);
         } catch(e) {
           console.log("there was an error fetching the user");
           console.log(e);
