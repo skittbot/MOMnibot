@@ -3,7 +3,7 @@ exports.run = (client, message, args) => {
   if(!args || args.length < 1) return message.channel.send('The syntax for this command is: !addteam [_teamname_]');
   var subTeam = args.join("_").toLowerCase();
   subTeam = initialCaps(subTeam);
-  var roleName = message.guild.roles.find(role => role.name === subTeam);
+  var roleName = message.guild.roles.find(role => role.name === subTeam); 
   var badgeExists = client.badgeList.has(subTeam);
   if (!roleName) return message.channel.send('The role has not been created yet.');
   if (!badgeExists) return message.channel.send('The badge has not been added yet.');
