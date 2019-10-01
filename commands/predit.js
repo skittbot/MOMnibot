@@ -27,16 +27,16 @@ exports.run = (client, message, args) => {
     break; */
 
     case "bg":
-      if (!client.bgList.has(theEdit)) return message.channel.send("The specified background does not exist. For a full list of backgrounds to choose from, try using the !prlist command.");
+      if (!client.bgList.has(theEdit)) return message.channel.send("The specified background does not exist. For a full list of backgrounds to choose from, try using the !bglist command.");
       client.userProfiles.ensure(message.author.username,{"team":"none","badges":[],"profColor":"#7289DA","profBGI":"https://i.imgur.com/7okSCgl.png"});
-	  
+
 	  if (client.bgList.hasProp(theEdit,"lock")) {
 		  var thisLock = client.bgList.get(theEdit,"lock");
 		  if (!(message.member.roles.find(role => role.name === thisLock))) {
-			 return message.channel.send('You cannot select this background.'); 
+			 return message.channel.send('You cannot select this background.');
 		  }
 	  }
-	  
+
       client.userProfiles.set(message.author.username,client.bgList.get(theEdit,'url'),"profBGI");
       return message.channel.send('You have successfully changed your profile background image.');
     break;

@@ -5,7 +5,7 @@ exports.run = (client, message, args) => {
   if (names.length < 1) return message.channel.send("There are currently no backgrounds loaded into the database.");
   var eachBG = [];
   for(var key of names) {
-    eachBG.push({"name": key,"value":`[click to preview](${client.bgList.get(key)})`});
+    eachBG.push({"name": key,"value":`[click to preview](${client.bgList.get(key,'url')})`});
   }
   console.log(eachBG);
   return message.channel.send('Here are a list of backgrounds for your profile. To use one, use the following command: \n!predit bg *backgroundname*',{
