@@ -117,9 +117,9 @@ exports.run = async (client, message, args) => {
     // This creates a "key" for enmaps Key/Value system.
     // We've declared it as a variable as we'll be using it in multiple places.
     try {
-      const keyMem = message.mentions.members.first();
-      const keyUser = message.mentions.users.first();
-      const key = message.mentions.users.first().username;
+      const await keyMem = message.mentions.members.first();
+      const await keyUser = message.mentions.users.first();
+      const await key = message.mentions.users.first().username;
       if (!key) return message.channel.send("The specified user could not be found.");
     } catch(e) {
       return message.channel.send("The specified user could not be found or there was another error.");
