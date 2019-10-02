@@ -121,7 +121,11 @@ exports.run = (client, message, args) => {
             //message.channel.send(`added a badge ${bName} to user ${bUsers[person]}`);
             if (!client.badgeList.has(bName,"creator")) client.badgeList.set(bName,"unknown","creator");
             const thisBadge = client.badgeList.get(bName);
-            message.channel.send({
+
+            var postTo = message.guild.channels.find(channel => channel.name === 'bot-spam');
+
+
+            postTo.channel.send({
               "embed": {
                 "title": `${bUsers[person]} has earned a badge!`,
                 "description": '**' + bName +'**\n' + thisBadge.description,
