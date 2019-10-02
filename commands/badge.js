@@ -3,7 +3,6 @@ exports.run = (client, message, args) => {
 
       if(!args || args.length < 1) return message.channel.send('The syntax for this command is: !badge [_badge name_]');
       var subBadge = args.join("_").toLowerCase();
-      var postTo = message.guild.channels.find(channel => channel.name === 'bot-spam');
       subBadge = initialCaps(subBadge);
       const badgeL = client.badgeList.get("master list");
       if(!badgeL.includes(subBadge)) return message.channel.send('The requested badge does not exist.');
@@ -123,10 +122,10 @@ exports.run = (client, message, args) => {
             if (!client.badgeList.has(bName,"creator")) client.badgeList.set(bName,"unknown","creator");
             const thisBadge = client.badgeList.get(bName);
 
+            var postTo = message.member.guild.channels.find(channel => channel.name === 'bot-spam');
 
 
-
-            postTo.channel.send({
+            postTo.send({
               "embed": {
                 "title": `${bUsers[person]} has earned a badge!`,
                 "description": '**' + bName +'**\n' + thisBadge.description,
