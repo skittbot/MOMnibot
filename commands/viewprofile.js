@@ -112,14 +112,14 @@ exports.run = async (client, message, args) => {
   if (message.guild) {
 
     if(!message.member.hasPermission('MANAGE_ROLES')) return console.log('{$message.member} does not have permission to view other badges');
-    if(!args || args.length != 1) return message.channel.send(`The command for viewing a user profile is ${client.config.settings.prefix}viewprofile [*@username*] [*hours*]`);
+    if(!args || args.length != 1) return message.channel.send(`The command for viewing a user profile is ${client.config.settings.prefix}viewprofile [*@username*] [*page*]`);
 
     // This creates a "key" for enmaps Key/Value system.
     // We've declared it as a variable as we'll be using it in multiple places.
     try {
-      const await keyMem = message.mentions.members.first();
-      const await keyUser = message.mentions.users.first();
-      const await key = message.mentions.users.first().username;
+      const keyMem = await message.mentions.members.first();
+      const keyUser = await message.mentions.users.first();
+      const key = await message.mentions.users.first().username;
       if (!key) return message.channel.send("The specified user could not be found.");
     } catch(e) {
       return message.channel.send("The specified user could not be found or there was another error.");
